@@ -1,9 +1,9 @@
 import style from './App.module.css'
 import Cards from './components/Cards/Cards.jsx';
 import Nav from './components/Nav/Nav.jsx';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import About from './components/About/About.jsx';
 import Detail from './components/Detail/Detail';
 import Form from './components/Form/Form';
@@ -12,6 +12,17 @@ import Favorites from './components/Favorites/Favorites';
 function App() {
    //! HOOK useState
    const [characters, setCharacters] = useState ([])
+   const [access, setAccess] = useState (false)
+   const { pathname } = useLocation()
+   const navigate = useNavigate()
+
+   useEffect(() => {
+      !access && navigate('/');
+   }, [access]);
+
+   //! DATOS PARA CONTRASEÑA
+   const EMAIL = "ruben@mail.com"
+   const PASSWORD = "puchito99"
 
    //! EVENT HANDLER onSearch
    function onSearch(id) {
@@ -33,7 +44,15 @@ function App() {
       setCharacters (characters.filter((char) => char.id !== id))
    }
 
-   const { pathname } = useLocation()
+   //! FUNCION PARA LOGUEARSE
+   const login = (userData) => {
+      if ( userData.email === EMAIL && userData.password === PASSWORD ) {
+         setAccess (true)
+         navigate ("/home")
+      } else {
+         alert ("Email o password incorrectas")
+      }
+   }
 
    return (
       <div className="App">
@@ -43,11 +62,8 @@ function App() {
          <hr /> */}
          { pathname !== "/" ? <Nav onSearch={onSearch} /> : null }
          <Routes>
-            <Route path="/" element={<Form/>} />
-            <Route 
-            path="/home" 
-            element={<Cards characters={characters} onClose={onClose} />}
-            />
+            <Route path="/" element={<Form login={login} />} />
+            <Route path="/home" element={<Cards characters={characters} onClose={onClose} />} />
             <Route path="/about" element={<About/>} />
             <Route path="/favorites" element={<Favorites/>} />
             <Route path="/detail/:id" element={<Detail/>} />
