@@ -19,7 +19,8 @@ Esta es una aplicación con temática de Rick And Morty, algunas de sus caracter
 ## Changelog
 ---
 - 26/May/23 : Primer commit/push del proyecto. Avance hasta la HW-12 React-Redux. Hasta el momento se pueden agregar cards en /home, se pueden agregar o eliminar favoritos. La página de login aún está en fase de desarrollo. Estilos/CSS pendientes.
-- 07/Jun/23 : Se arregló la parte del login, ahora se necesita un email y una contraseña para acceder.
+- 07/Jun/23 : Se arregló la parte del login, ahora se necesita un email y una contraseña para acceder. Se añadieron filtros a favoritos.
+- 08/Jun/23 : Se agregó un server local (webserver). Todas las peticiones ahora son a localhost:3001.
 
 ## App en desarrollo, solo con fines académicos
 ---
